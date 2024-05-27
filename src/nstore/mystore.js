@@ -1,22 +1,19 @@
 import createSagaMiddleware from "redux-saga";
-
-import product from "../slice/product";
 import rootSaga from "../saga/rootsaga";
 import { configureStore } from "@reduxjs/toolkit";
-import buttonSlice from "../slice/buttonSlice";
+import myProductSlice from "../slice/myProductSlice";
+import MyRootSaga from "../saga/myRootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = configureStore({
+const storeMy = configureStore({
   reducer: {
-    product1: product,
-    buttons :buttonSlice,
-    
+    myProduct1: myProductSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
 
  });
 
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(MyRootSaga);
 
-export default store;
+export default storeMy;
