@@ -12,7 +12,7 @@ import store1 from "./nstore/nstore.js";
 ReactDOM.createRoot(document.getElementById("root")).render( 
   // <React.StrictMode>
   <Provider store={store1}>
-    <Product />
+    <Product/>
   </Provider>
 
   // </React.StrictMode>,
