@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMyFilterData } from "./slice/myProductSlice";
 
 export const MyButtonsDisplay = () => {
-  const categories = useSelector((state) => state.myProduct1?.catagories);
-  const dispatch = useDispatch();
-  const filterData = (category) => {
-    dispatch(getMyFilterData(category));
+  const categories = useSelector((state) => state.myProduct1?.catagories.concat("All"));
+
+  const d = useDispatch();
+  const filterData = (categories) => {
+    d(getMyFilterData(categories));
   };
 
-  console.log(categories);
+  // console.log(categories);
+  
   return (
-    <div>
+    <div style={{display: "flex", justifyContent: "center", alignItems: 'center', flexWrap:"wrap"}} >
       {categories?.map((category, index) => (
         <Button key={index} size="small" onClick={() => filterData(category)}>
           {category}
@@ -21,3 +23,4 @@ export const MyButtonsDisplay = () => {
     </div>
   );
 };
+

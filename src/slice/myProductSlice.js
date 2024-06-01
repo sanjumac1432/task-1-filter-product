@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   myData: [],
-  myDataLoading: false,
+  allData: [],
+  isLoading: false,
   catagories: [],
   error: null,
 };
@@ -12,43 +13,45 @@ const myProductSlice = createSlice({
   initialState,
   reducers: {
     getMyProductRequest: (state) => {
-      state.myDataLoading = true;
+      state.isLoading = true;
     },
     getMyProductSuccess: (state, action) => {
-      state.myDataLoading = false;
-      state.myData = action.payload;
-      console.log(action)
+      state.isLoading = false;
+      state.myData = action.payload?.products;
+      state.allData = action.payload?.products;
+      console.log(action);
       state.catagories = action?.payload?.products
         ?.map((p) => {
           return p.category;
         })
         .reduce((pre, next) => {
-            if (!pre.includes(next)) {
-              pre.push(next);
-            }
-            return pre;
-          }, []);
+          if (!pre.includes(next)) {
+            pre.push(next);
+          }
+          return pre;
+        }, []);
     },
     getMyError: (state, action) => {
-      state.myDataLoading = false;
+      state.isLoading = false;
       state.error = action.payload;
     },
     getMyFilterData: (state, action) => {
-        console.log(action);
-      
-        var d = JSON.parse(JSON.stringify(state.myData));
-        console.log(d);
-        state.myData =  d?.products.filter((d)=>{
-          return d.category === action.payload
-        })
-       
-        console.log(state.myData);
-  
-      },
+      let d = JSON.parse(JSON.stringify(state.allData));
+      if (action.payload === "All") {
+        state.myData = state.allData;
+      } else {
+        state.myData = d.filter((p) => p.category === action.payload);
+      }
+      console.log(state.myData);
+    },
   },
 });
 
-export const { getMyProductRequest, getMyProductSuccess, getMyError,getMyFilterData } =
-  myProductSlice.actions;
+export const {
+  getMyProductRequest,
+  getMyProductSuccess,
+  getMyError,
+  getMyFilterData,
+} = myProductSlice.actions;
 
 export default myProductSlice.reducer;

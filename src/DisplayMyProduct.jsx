@@ -1,24 +1,40 @@
-import React, { useEffect } from 'react';
-import "./App.css";
-import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardActions, CardContent, CardMedia, Typography, Button } from '@mui/material';
-import { getMyProductRequest } from './slice/myProductSlice';
-import { MyButtonsDisplay } from './MyButtonsDisplay';
+import React, { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+} from "@mui/material";
+import { getMyProductRequest } from "./slice/myProductSlice";
+import { MyButtonsDisplay } from "./MyButtonsDisplay";
 
 export const DisplayMyProduct = () => {
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.myProduct1?.myData?.products);
+  const d = useDispatch();
+  const products = useSelector((state) => state.myProduct1?.myData);
 
   useEffect(() => {
-    dispatch(getMyProductRequest()); // Fetch products on component mount
-  }, [dispatch]);
+    d(getMyProductRequest());
+  }, [d]);
 
   return (
     <>
-    <MyButtonsDisplay/>
-      {
-        products?.map((product, index) => (
-          <Card key={index} sx={{ width: 500, m: 4, display: "flex", flexWrap: "wrap" }}>
+      <MyButtonsDisplay />
+
+      {products?.map((product, index) => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap",
+            flexDirection: "row",
+          }}
+        >
+          <Card key={index} sx={{ maxWidth: 345, m: 4 }}>
             <CardMedia
               component="img"
               alt="Product Image"
@@ -39,8 +55,8 @@ export const DisplayMyProduct = () => {
               <Button size="small">Add To Cart</Button>
             </CardActions>
           </Card>
-        ))
-     }
+        </div>
+      ))}
     </>
   );
 };

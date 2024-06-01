@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 import { getMyError, getMyProductRequest, getMyProductSuccess } from "../slice/myProductSlice";
 import { getMyUserData } from "../services/myProductApi";
@@ -19,5 +19,5 @@ function* asyncMyProduct() {
 }
 
 export function* watcherMyProduct() {
-  yield takeEvery(getMyProductRequest().type, asyncMyProduct);
+  yield takeLatest(getMyProductRequest().type, asyncMyProduct);
 }
