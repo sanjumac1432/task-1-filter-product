@@ -37,6 +37,7 @@ const myProductSlice = createSlice({
     },
     getMyFilterData: (state, action) => {
       let d = JSON.parse(JSON.stringify(state.allData));
+      
       if (action.payload === "All") {
         state.myData = state.allData;
       } else {

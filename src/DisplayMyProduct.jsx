@@ -23,40 +23,49 @@ export const DisplayMyProduct = () => {
   return (
     <>
       <MyButtonsDisplay />
+      <div
+           
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexWrap: "wrap",
+              flexDirection: "row",
+            
 
-      {products?.map((product, index) => (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            flexDirection: "row",
-          }}
-        >
-          <Card key={index} sx={{ maxWidth: 345, m: 4 }}>
-            <CardMedia
-              component="img"
-              alt="Product Image"
-              height="345"
-              width="345"
-              image={product.image}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                Title: {product.title}
-              </Typography>
-              <Typography variant="h5" color="text.secondary">
-                Category: {product.category}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Price: {product.price}</Button>
-              <Button size="small">Add To Cart</Button>
-            </CardActions>
-          </Card>
-        </div>
-      ))}
+            }}
+          >
+
+      {products?.map((product, index) => {
+        return (
+          
+         
+            <Card  key={index} sx={{ maxWidth: 345, m: 4 }}>
+              <CardMedia
+                component="img"
+                alt="Product Image"
+                height="345"
+                width="345"
+                image={product.image}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  Title: {product.title}
+                </Typography>
+                <Typography variant="h5" color="text.secondary">
+                  Category: {product.category}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Price: {product.price}</Button>
+                <Button size="small">Add To Cart</Button>
+              </CardActions>
+            </Card>
+     
+        
+        );
+      })}
+             </div>
     </>
   );
 };
